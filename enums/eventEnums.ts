@@ -5,4 +5,5 @@ export enum EventEnums {
   SHOW = "show",
   RESTAURANT = "restuarant",
   SPORT = "sport",
+  HISTORY = "history",
 }

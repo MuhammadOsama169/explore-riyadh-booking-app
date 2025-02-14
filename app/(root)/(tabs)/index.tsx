@@ -1,11 +1,19 @@
-import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  Pressable,
+} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { eventData, featuredEventData } from "@/assets/data/eventData";
-import { EventCard } from "@/components/EventCard";
+import { FeaturedCard, Card } from "@/components/EventCards";
 import { router } from "expo-router";
 import SearchComponent from "@/components/global/SearchComponent";
+import StoriesPlayer from "@/components/StoriesPlayer";
 
 export default function index() {
   const handleCardPress = (id: string) => {
@@ -17,10 +25,11 @@ export default function index() {
       <FlatList
         showsVerticalScrollIndicator={false}
         numColumns={2}
-        contentContainerClassName="pb-32"
+        contentContainerClassName="pb-28"
         columnWrapperClassName="flex gap-5 px-5"
         data={[]}
         renderItem={null}
+        removeClippedSubviews={false}
         ListHeaderComponent={() => (
           <View className="px-5 ">
             {/* /basic info */}
@@ -35,17 +44,14 @@ export default function index() {
             </View>
 
             <SearchComponent />
-            {/* heading divider */}
-            <View className="flex flex-row justify-between items-center ">
-              <Text className="text-bold text-xl text-white">Featured</Text>
-              <TouchableOpacity className=" text-semibold">
-                <Text className="text-blue-600">See All</Text>
-              </TouchableOpacity>
-            </View>
+
+            <StoriesPlayer />
+
             <FlatList
-              data={featuredEventData}
+              data={eventData}
+              initialNumToRender={eventData.length}
               renderItem={({ item }) => (
-                <EventCard
+                <FeaturedCard
                   item={item}
                   onPress={() => handleCardPress(item.id)}
                 />
@@ -53,29 +59,24 @@ export default function index() {
               keyExtractor={(item) => item.id}
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerClassName="flex gap-5 mt-5"
+              contentContainerClassName="flex gap-5 mt-4"
+              removeClippedSubviews={false}
             />
             {/* heading divider */}
             <View className="flex flex-row justify-between items-center  mt-5">
-              <Text className="text-bold text-xl text-white">
-                Our Recomendations
-              </Text>
-              <TouchableOpacity className=" text-semibold">
-                <Text className="text-blue-600">See All</Text>
-              </TouchableOpacity>
+              <Text className="font-bold text-2xl text-white">Whats New</Text>
             </View>
             <FlatList
               data={featuredEventData}
+              initialNumToRender={featuredEventData.length}
               renderItem={({ item }) => (
-                <EventCard
-                  item={item}
-                  onPress={() => handleCardPress(item.id)}
-                />
+                <Card item={item} onPress={() => handleCardPress(item.id)} />
               )}
               keyExtractor={(item) => item.id}
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerClassName="flex gap-5 mt-5"
+              removeClippedSubviews={false}
             />
           </View>
         )}
