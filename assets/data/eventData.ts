@@ -1,5 +1,5 @@
 import { EventEnums } from "@/enums/eventEnums";
-import { EventTypes } from "@/types/eventTypes";
+import { EventTypes } from "@/types/EventTypes";
 
 export const featuredEventData: EventTypes[] = [
   {

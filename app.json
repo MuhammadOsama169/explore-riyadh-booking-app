@@ -38,9 +38,15 @@
         {
           "fonts": ["./assets/fonts/InstrumentSans.tff"]
         }
+      ],
+      [
+        "expo-video",
+        {
+          "supportsBackgroundPlayback": true,
+          "supportsPictureInPicture": true
+        }
       ]
     ],
-
     "experiments": {
       "typedRoutes": true
     }

@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableHighlight,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import React, { useRef } from "react";
 import { router, useLocalSearchParams } from "expo-router";
@@ -55,72 +56,82 @@ const Events = () => {
   );
 
   return (
-    <SafeAreaView className="bg-black flex flex-col h-full p-4">
-      <View style={{ flex: 1 }}>
-        <TouchableOpacity className=" mb-4" onPress={() => router.push(`/`)}>
-          <Feather name="chevron-down" size={24} color="white" />
-        </TouchableOpacity>
-
-        <Carousel
-          loop
-          width={viewportWidth - 32}
-          height={350}
-          autoPlay
-          autoPlayInterval={5000}
-          data={selectedEvent?.images}
-          renderItem={renderImageItem}
-          onSnapToItem={(index) => {
-            progress.value = index;
-          }}
-        />
-        <Pagination.Basic
-          progress={progress}
-          data={selectedEvent?.images || []}
-          dotStyle={{
-            backgroundColor: "rgba(255,255,255,0.5)",
-            width: 8,
-            height: 8,
-            borderRadius: 4, // half of 8
-          }}
-          activeDotStyle={{
-            backgroundColor: "#ff2b79",
-            width: 8,
-            height: 8,
-            borderRadius: 4,
-          }}
-          containerStyle={{
-            alignSelf: "center",
-            gap: 8,
-            marginTop: 10,
-          }}
-        />
-        {/* //basic info */}
-
+    <SafeAreaView className="bg-black flex-1 ">
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: "space-between",
+          padding: 16,
+        }}
+      >
         <View>
-          <Text className="font-bold text-[30px] text-white">
-            {selectedEvent?.name}
-          </Text>
+          <TouchableOpacity className=" mb-4" onPress={() => router.back()}>
+            <Feather name="chevron-down" size={24} color="white" />
+          </TouchableOpacity>
 
-          <Text className="font-bold text-md text-gray-300">
-            {selectedEvent?.location}
-          </Text>
+          <Carousel
+            loop
+            width={viewportWidth - 32}
+            height={350}
+            autoPlay
+            autoPlayInterval={5000}
+            data={selectedEvent?.images}
+            renderItem={renderImageItem}
+            onSnapToItem={(index) => {
+              progress.value = index;
+            }}
+          />
+          <Pagination.Basic
+            progress={progress}
+            data={selectedEvent?.images || []}
+            dotStyle={{
+              backgroundColor: "rgba(255,255,255,0.5)",
+              width: 8,
+              height: 8,
+              borderRadius: 4, // half of 8
+            }}
+            activeDotStyle={{
+              backgroundColor: "#ff2b79",
+              width: 8,
+              height: 8,
+              borderRadius: 4,
+            }}
+            containerStyle={{
+              alignSelf: "center",
+              gap: 8,
+              marginTop: 10,
+            }}
+          />
+          {/* //basic info */}
 
-          <Text className="font-medium text-lg text-gray-300 mt-4">
-            {selectedEvent?.desc}
-          </Text>
+          <View>
+            <Text className="font-bold text-[30px] text-white">
+              {selectedEvent?.name}
+            </Text>
+
+            <Text className="font-bold text-md text-gray-300">
+              {selectedEvent?.location}
+            </Text>
+
+            <Text className="font-medium text-lg text-gray-300 mt-4">
+              {selectedEvent?.desc}
+            </Text>
+          </View>
         </View>
-      </View>
 
-      {/* //btn  */}
-      <View className="flex flex-row items-center justify-between  text-white py-4">
-        <View className="flex flex-row">
-          <Text className="text-gray-300 font-bold">Price: </Text>
-          <Text className="text-white font-bold">{selectedEvent?.price}</Text>
+        {/* //btn  */}
+        <View className="flex flex-row items-center justify-between  text-white py-4">
+          <View className="flex flex-row">
+            <Text className="text-gray-300 font-bold">Price: </Text>
+            <Text className="text-white font-bold">
+              {selectedEvent?.price} SAR
+            </Text>
+          </View>
+          <TouchableOpacity className="bg-pink_pop  p-4 rounded-lg">
+            <Text className="text-white font-bold">Book Ticket</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity className="bg-pink_pop  p-4 rounded-lg">
-          <Text className="text-white font-bold">Book Ticket</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
